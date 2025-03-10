@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:riverpod_learn/provider/counter_state_provider.dart';
+import 'package:riverpod_learn/provider/counter_notifier_provider.dart';
+// import 'package:riverpod_learn/provider/counter_state_provider.dart';
 
 class CounterScreen extends ConsumerStatefulWidget {
   const CounterScreen({super.key});
@@ -12,7 +13,8 @@ class CounterScreen extends ConsumerStatefulWidget {
 class _CounterScreenState extends ConsumerState<CounterScreen> {
   @override
   Widget build(BuildContext context) {
-    final counter = ref.watch(counterStateProvider);
+    // final counter = ref.watch(counterStateProvider);
+    final counter = ref.watch(counterNotifierProvider);
     return Scaffold(
       appBar: AppBar(
         title: Text("Counter Screen"),
@@ -34,7 +36,8 @@ class _CounterScreenState extends ConsumerState<CounterScreen> {
           ),
           FloatingActionButton(
             onPressed: () {
-              ref.read(counterStateProvider.notifier).state++;
+              // ref.read(counterStateProvider.notifier).state++;
+              ref.read(counterNotifierProvider.notifier).increment();
             },
             tooltip: "Increment",
             child: Icon(Icons.add),
@@ -44,13 +47,25 @@ class _CounterScreenState extends ConsumerState<CounterScreen> {
           ),
           FloatingActionButton(
             onPressed: () {
-              ref.read(counterStateProvider.notifier).state--;
+              // ref.read(counterStateProvider.notifier).state--;
+              ref.read(counterNotifierProvider.notifier).decrement();
             },
             tooltip: "Decrement",
             child: Icon(Icons.horizontal_rule),
           ),
           SizedBox(
             width: 10,
+          ),
+          SizedBox(
+            width: 10,
+          ),
+          FloatingActionButton(
+            onPressed: () {
+              // ref.read(counterStateProvider.notifier).state--;
+              ref.read(counterNotifierProvider.notifier).reset();
+            },
+            tooltip: "Reset",
+            child: Icon(Icons.restore),
           ),
         ],
       ),
